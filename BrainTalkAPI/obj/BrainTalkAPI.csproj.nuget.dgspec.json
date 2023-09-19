@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "J:\\Geral\\Documentos\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj": {}
+    "C:\\Users\\u22138\\Documents\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj": {}
   },
   "projects": {
-    "J:\\Geral\\Documentos\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj": {
+    "C:\\Users\\u22138\\Documents\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "J:\\Geral\\Documentos\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj",
+        "projectUniqueName": "C:\\Users\\u22138\\Documents\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj",
         "projectName": "BrainTalkAPI",
-        "projectPath": "J:\\Geral\\Documentos\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj",
-        "packagesPath": "C:\\Users\\Jotta\\.nuget\\packages\\",
-        "outputPath": "J:\\Geral\\Documentos\\GitHub\\BrainTalk\\BrainTalkAPI\\obj\\",
+        "projectPath": "C:\\Users\\u22138\\Documents\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj",
+        "packagesPath": "C:\\Users\\u22138\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\u22138\\Documents\\GitHub\\BrainTalk\\BrainTalkAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Jotta\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\u22138\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +45,16 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -54,6 +71,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.22, 6.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.22, 6.0.22]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -62,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.414\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.111\\RuntimeIdentifierGraph.json"
         }
       }
     }

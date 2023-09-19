@@ -84,8 +84,8 @@ CREATE TABLE BrainTalk.StudyMaterials (
 -- Inserir dados fictícios na tabela Users
 INSERT INTO BrainTalk.Users (Nome, Email, Senha, FotoPerfil)
 VALUES
-    ('Usuário 1', 'usuario1@email.com', 'senha1', NULL), -- Dados binários da imagem de perfil 1
-    ('Usuário 2', 'usuario2@email.com', 'senha2', NULL); -- Dados binários da imagem de perfil 2
+    ('Usuário 1', 'usuario1@email.com', 'senha1', 00000), -- Dados binários da imagem de perfil 1
+    ('Usuário 2', 'usuario2@email.com', 'senha2', 00000); -- Dados binários da imagem de perfil 2
 
 -- Inserir dados fictícios na tabela DiscussionTopics
 INSERT INTO BrainTalk.DiscussionTopics (UserID, Titulo, Descricao, DataCriacao, Categoria)
@@ -97,8 +97,8 @@ VALUES
 INSERT INTO BrainTalk.ForumPosts (UserID, Conteudo, TipoConteudo, ArquivoConteudo, DataPostagem)
 VALUES
     (1, 'Este é um post de texto.', 'Texto', NULL, GETDATE()), -- Post de texto
-    (2, NULL, 'Imagem', NULL, GETDATE()), -- Dados binários de uma imagem (JPG, por exemplo)
-    (1, NULL, 'Video', NULL, GETDATE()); -- Dados binários de um vídeo (AVI, por exemplo)
+    (2, 'Este é um post de imagem.', 'Imagem', 0000, GETDATE()), -- Dados binários de uma imagem (JPG, por exemplo)
+    (1, 'Este é um post de video.', 'Video', 0000, GETDATE()); -- Dados binários de um vídeo (AVI, por exemplo)
 
 -- Inserir dados fictícios na tabela Likes
 INSERT INTO BrainTalk.Likes (UserID, PostID, DataCurtida)
@@ -128,8 +128,8 @@ VALUES
 -- Inserir dados fictícios na tabela StudyMaterials
 INSERT INTO BrainTalk.StudyMaterials (UserID, TituloMaterial, DescricaoMaterial, Formato, Arquivo, DataUpload)
 VALUES
-    (1, 'Material de Estudo 1', 'Descrição do Material 1', 'PDF', NULL, GETDATE()), -- Dados binários do arquivo PDF
-    (2, 'Material de Estudo 2', 'Descrição do Material 2', 'Vídeo', NULL, GETDATE()); -- Dados binários do arquivo de vídeo
+    (1, 'Material de Estudo 1', 'Descrição do Material 1', 'PDF', 0000, GETDATE()), -- Dados binários do arquivo PDF
+    (2, 'Material de Estudo 2', 'Descrição do Material 2', 'Vídeo', 0000, GETDATE()); -- Dados binários do arquivo de vídeo
 
 -- Visualizar todos os dados na tabela Users
 SELECT * FROM BrainTalk.Users;
@@ -154,3 +154,55 @@ SELECT * FROM BrainTalk.Responses;
 
 -- Visualizar todos os dados na tabela StudyMaterials
 SELECT * FROM BrainTalk.StudyMaterials;
+
+
+
+-- Excluir todos os dados na tabela Users
+DELETE FROM BrainTalk.Users;
+
+-- Excluir todos os dados na tabela DiscussionCategories
+DELETE FROM BrainTalk.DiscussionCategories;
+
+-- Excluir todos os dados na tabela DiscussionTopics
+DELETE FROM BrainTalk.DiscussionTopics;
+
+-- Excluir todos os dados na tabela Responses
+DELETE FROM BrainTalk.Responses;
+
+-- Excluir todos os dados na tabela ForumPosts
+DELETE FROM BrainTalk.ForumPosts;
+
+-- Excluir todos os dados na tabela Likes
+DELETE FROM BrainTalk.Likes;
+
+-- Excluir todos os dados na tabela Friends
+DELETE FROM BrainTalk.Friends;
+
+-- Excluir todos os dados na tabela StudyMaterials
+DELETE FROM BrainTalk.StudyMaterials;
+
+
+
+-- Excluir permanentemente a tabela Users
+DROP TABLE BrainTalk.Users;
+
+-- Excluir permanentemente a tabela DiscussionCategories
+DROP TABLE BrainTalk.DiscussionCategories;
+
+-- Excluir permanentemente a tabela DiscussionTopics
+DROP TABLE BrainTalk.DiscussionTopics;
+
+-- Excluir permanentemente a tabela Responses
+DROP TABLE BrainTalk.Responses;
+
+-- Excluir permanentemente a tabela ForumPosts
+DROP TABLE BrainTalk.ForumPosts;
+
+-- Excluir permanentemente a tabela Likes
+DROP TABLE BrainTalk.Likes;
+
+-- Excluir permanentemente a tabela Friends
+DROP TABLE BrainTalk.Friends;
+
+-- Excluir permanentemente a tabela StudyMaterials
+DROP TABLE BrainTalk.StudyMaterials;
