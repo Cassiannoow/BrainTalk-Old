@@ -138,7 +138,7 @@ SELECT * FROM BrainTalk.Users;
 SELECT * FROM BrainTalk.DiscussionTopics;
 
 -- Visualizar todos os dados na tabela ForumPosts
-SELECT * FROM BrainTalk.ForumPosts;
+SELECT * FROM BrainTalk.Posts;
 
 -- Visualizar todos os dados na tabela Likes
 SELECT * FROM BrainTalk.Likes;

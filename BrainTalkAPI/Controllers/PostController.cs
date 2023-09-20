@@ -23,7 +23,7 @@ namespace BrainTalkAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Posts>> CreatePost(Posts post)
         {
-            _context.Post.Add(post);
+            _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetPost), new { id = post.PostID }, post);
@@ -31,9 +31,9 @@ namespace BrainTalkAPI.Controllers
 
         // Método para obter um post no fórum por ID
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetPost(int id)
+        public async Task<ActionResult<Posts>> GetPost(int id)
         {
-            var post = await _context.Post.FindAsync(id);
+            var post = await _context.Posts.FindAsync(id);
 
             if (post == null)
             {

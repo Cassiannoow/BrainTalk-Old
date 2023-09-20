@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BrainTalkAPI.Models
 {
-    public class Post
+    public class Posts
     {
         [Key]
         public int PostID { get; set; }

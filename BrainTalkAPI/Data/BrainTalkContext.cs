@@ -18,7 +18,7 @@ namespace BrainTalkAPI.Data
 
         public DbSet<User> Users {get; set;}
         public DbSet<Friend> Friend { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Posts> Posts { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<DiscussionTopic> DiscussionTopic { get; set; }
         public DbSet<Response> Response { get; set; }
