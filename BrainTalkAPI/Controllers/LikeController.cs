@@ -23,7 +23,7 @@ namespace BrainTalkAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Like>> CreateLike(Like like)
         {
-            _context.Like.Add(like);
+            _context.Likes.Add(like);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetLike), new { id = like.LikeID }, like);
@@ -33,7 +33,7 @@ namespace BrainTalkAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Like>> GetLike(int id)
         {
-            var like = await _context.Like.FindAsync(id);
+            var like = await _context.Likes.FindAsync(id);
 
             if (like == null)
             {
@@ -77,13 +77,13 @@ namespace BrainTalkAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLike(int id)
         {
-            var like = await _context.Like.FindAsync(id);
+            var like = await _context.Likes.FindAsync(id);
             if (like == null)
             {
                 return NotFound();
             }
 
-            _context.Like.Remove(like);
+            _context.Likes.Remove(like);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -91,7 +91,7 @@ namespace BrainTalkAPI.Controllers
 
         private bool LikeExists(int id)
         {
-            return _context.Like.Any(e => e.LikeID == id);
+            return _context.Likes.Any(e => e.LikeID == id);
         }
     }
 }

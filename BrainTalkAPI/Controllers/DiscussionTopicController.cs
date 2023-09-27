@@ -23,7 +23,7 @@ namespace BrainTalkAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<DiscussionTopic>> CreateDiscussionTopic(DiscussionTopic topic)
         {
-            _context.DiscussionTopic.Add(topic);
+            _context.DiscussionTopics.Add(topic);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetDiscussionTopic), new { id = topic.TopicID }, topic);
@@ -33,7 +33,7 @@ namespace BrainTalkAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<DiscussionTopic>> GetDiscussionTopic(int id)
         {
-            var topic = await _context.DiscussionTopic.FindAsync(id);
+            var topic = await _context.DiscussionTopics.FindAsync(id);
 
             if (topic == null)
             {
@@ -77,13 +77,13 @@ namespace BrainTalkAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDiscussionTopic(int id)
         {
-            var topic = await _context.DiscussionTopic.FindAsync(id);
+            var topic = await _context.DiscussionTopics.FindAsync(id);
             if (topic == null)
             {
                 return NotFound();
             }
 
-            _context.DiscussionTopic.Remove(topic);
+            _context.DiscussionTopics.Remove(topic);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -91,7 +91,7 @@ namespace BrainTalkAPI.Controllers
 
         private bool DiscussionTopicExists(int id)
         {
-            return _context.DiscussionTopic.Any(e => e.TopicID == id);
+            return _context.DiscussionTopics.Any(e => e.TopicID == id);
         }
     }
 }

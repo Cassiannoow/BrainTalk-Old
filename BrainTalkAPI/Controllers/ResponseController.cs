@@ -23,7 +23,7 @@ namespace BrainTalkAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Response>> CreateResponse(Response response)
         {
-            _context.Response.Add(response);
+            _context.Responses.Add(response);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetResponse), new { id = response.ResponseID }, response);
@@ -33,7 +33,7 @@ namespace BrainTalkAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetResponse(int id)
         {
-            var response = await _context.Response.FindAsync(id);
+            var response = await _context.Responses.FindAsync(id);
 
             if (response == null)
             {
@@ -77,13 +77,13 @@ namespace BrainTalkAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteResponse(int id)
         {
-            var response = await _context.Response.FindAsync(id);
+            var response = await _context.Responses.FindAsync(id);
             if (response == null)
             {
                 return NotFound();
             }
 
-            _context.Response.Remove(response);
+            _context.Responses.Remove(response);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -91,7 +91,7 @@ namespace BrainTalkAPI.Controllers
 
         private bool ResponseExists(int id)
         {
-            return _context.Response.Any(e => e.ResponseID == id);
+            return _context.Responses.Any(e => e.ResponseID == id);
         }
     }
 }

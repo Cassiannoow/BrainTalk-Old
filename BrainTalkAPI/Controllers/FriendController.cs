@@ -23,7 +23,7 @@ namespace BrainTalkAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Friend>> CreateFriendRequest(Friend friend)
         {
-            _context.Friend.Add(friend);
+            _context.Friends.Add(friend);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetFriend), new { id = friend.FriendshipID }, friend);
@@ -33,7 +33,7 @@ namespace BrainTalkAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Friend>> GetFriend(int id)
         {
-            var friend = await _context.Friend.FindAsync(id);
+            var friend = await _context.Friends.FindAsync(id);
 
             if (friend == null)
             {
@@ -77,13 +77,13 @@ namespace BrainTalkAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFriend(int id)
         {
-            var friend = await _context.Friend.FindAsync(id);
+            var friend = await _context.Friends.FindAsync(id);
             if (friend == null)
             {
                 return NotFound();
             }
 
-            _context.Friend.Remove(friend);
+            _context.Friends.Remove(friend);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -91,7 +91,7 @@ namespace BrainTalkAPI.Controllers
 
         private bool FriendExists(int id)
         {
-            return _context.Friend.Any(e => e.FriendshipID == id);
+            return _context.Friends.Any(e => e.FriendshipID == id);
         }
     }
 }
