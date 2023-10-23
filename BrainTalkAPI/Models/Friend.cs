@@ -14,6 +14,6 @@ namespace BrainTalkAPI.Models
         public int FriendUserID { get; set; }
 
         [MaxLength(20)]
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 }

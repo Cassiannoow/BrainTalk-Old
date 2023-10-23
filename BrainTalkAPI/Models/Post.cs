@@ -10,12 +10,12 @@ namespace BrainTalkAPI.Models
         [Required]
         public int UserID { get; set; }
 
-        public string Conteudo { get; set; }
+        public string? Conteudo { get; set; }
 
         [MaxLength(50)]
-        public string TipoConteudo { get; set; }
+        public string? TipoConteudo { get; set; }
 
-        public byte[] ArquivoConteudo { get; set; }
+        public byte[]? ArquivoConteudo { get; set; }
 
         public DateTime DataPostagem { get; set; }
     }

@@ -12,13 +12,13 @@ namespace BrainTalkAPI.Models
 
         [Required]
         [MaxLength(255)]
-        public string Titulo { get; set; }
+        public string? Titulo { get; set; }
 
-        public string Descricao { get; set; }
+        public string? Descricao { get; set; }
 
         public DateTime DataCriacao { get; set; }
 
         [MaxLength(100)]
-        public string Categoria { get; set; }
+        public string? Categoria { get; set; }
     }
 }

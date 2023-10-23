@@ -9,16 +9,16 @@ namespace BrainTalkAPI.Models
 
         [Required]
         [MaxLength(255)]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [Required]
         [MaxLength(255)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
         [MaxLength(255)]
-        public string Senha { get; set; }
+        public string? Senha { get; set; }
 
-        public byte[] FotoPerfil { get; set; }
+        public byte[]? FotoPerfil { get; set; }
     }
 }

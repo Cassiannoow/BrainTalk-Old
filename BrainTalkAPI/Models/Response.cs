@@ -13,7 +13,7 @@ namespace BrainTalkAPI.Models
         [Required]
         public int TopicID { get; set; }
 
-        public string ConteudoResposta { get; set; }
+        public string? ConteudoResposta { get; set; }
 
         public DateTime DataResposta { get; set; }
     }
