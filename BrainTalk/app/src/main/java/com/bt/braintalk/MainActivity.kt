@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import models.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         txtTeste = findViewById<EditText>(R.id.txtEsqueceuSenha)
     }
 
-    interface AuthService {
-        @POST("Home/login") // Substitua "login" pela rota de login da sua API
-        fun login(@Body user: User): Call<User> // AuthResponse representa a resposta da autenticação
-    }
+
+
+    private fun showToast(s: String) {
+        Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT).show()
+    } //optimize
 
     fun registerPage(view: View) {
 
@@ -40,39 +45,35 @@ class MainActivity : AppCompatActivity() {
 
     fun perfilPage(view: View){
         val intent = Intent(this, PerfilActivity::class.java)
-        val user = User(
-            userID = 0,
-            nome = "none",
-            email = TextEmail.text.toString(),
-            senha = TextSenha.text.toString(),
-            fotoPerfil = ""
-        )
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://localhost:5030/api/") // Substitua pela sua URL base
-            .addConverterFactory(GsonConverterFactory.create()) // ConverterFactory para trabalhar com JSON
-            .build()
 
-        val authService = retrofit.create(AuthService::class.java)
-        val call = authService.login(user)
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.56.1:3000/users/bIRF6rb0UjLXlGE4GAnN"
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val authResponse = response.body()
-                    if (authResponse != null) {
-                        intent.putExtra( "nomeDoUsuario", authResponse.nome)
-                        println(authResponse)
-                    }
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val correctPassword = response.optString("password")
+                showToast(response.toString())
+                if (TextSenha.text.toString() == correctPassword) {
+                    val user = User(
+                        userID = "bIRF6rb0UjLXlGE4GAnN",
+                        name = response.optString("name"),
+                        email = response.optString("email"),
+                        password = response.optString("password"),
+                        photo = response.optString("photo"),
+                        biograpy = response.optString("biograpy"),
+                        username = response.optString("username")
+                    )
+                    intent.putExtra("user", user)
                     startActivity(intent)
-                    txtTeste.text = authResponse.toString()
                 } else {
-                    txtTeste.text = "erro de lgin"
+                    showToast("Wrong password")
                 }
+            },
+            { error ->
+                showToast("Invalid email" + error.toString())
             }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                txtTeste.text = t.message.toString()
-            }
-        })
+        )
+        queue.add(jsonObjectRequest)
     }
 }

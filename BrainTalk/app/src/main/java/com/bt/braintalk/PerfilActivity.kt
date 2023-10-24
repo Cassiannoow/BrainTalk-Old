@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import models.User
 
 
 class PerfilActivity : AppCompatActivity() {
@@ -22,8 +23,8 @@ class PerfilActivity : AppCompatActivity() {
             .into(imageView)
 
         TextName = findViewById<EditText>(R.id.txtName)
-        val nomeDoUsuario = intent.getStringExtra("nomeDoUsuario")
-        TextName.text = nomeDoUsuario.toString()
+        val user = intent.getSerializableExtra("user") as User
+        TextName.text = user.name.toString()
     }
 
 }

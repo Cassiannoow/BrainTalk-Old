@@ -1,0 +1,26 @@
+{
+  "name": "braintalk",
+  "version": "1.0.0",
+  "description": "O BrainTalk é uma plataforma de rede social inovadora, concebida inicialmente com o foco principal em fornecer um espaço virtual dedicado aos estudos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cassiannoow/BrainTalk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cassiannoow/BrainTalk/issues"
+  },
+  "homepage": "https://github.com/Cassiannoow/BrainTalk#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^10.5.0",
+    "node": "^21.0.0"
+  },
+  "type": "module"
+}
