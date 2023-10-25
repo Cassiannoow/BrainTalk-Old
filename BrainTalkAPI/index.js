@@ -16,6 +16,7 @@ const firebase = initializeApp(firebaseConfig);
 const db = getFirestore(firebase);
 
 const usersCol = collection(db, 'Users');
+const friends = collection(db, 'Friends');
 
 const validateUser = (user) => {
     try {
@@ -106,6 +107,22 @@ app.get('/users/:id', async (req, res) => {
         }
     } catch (error) {
         console.error('Error retrieving player: ', error);
+        handleResponse(res, 500, 'Internal Server Error');
+    }
+});
+
+app.get('/friends/', async (req, res) => {
+    try {
+        const playersSnapshot = await getDocs(friends);
+        const friendsLists = [];
+
+        playersSnapshot.forEach((playerDoc) => {
+            friendsLists.push(playerDoc.data());
+        });
+
+        res.status(200).send(friendsLists);
+    } catch (error) {
+        console.error('Error retrieving players: ', error);
         handleResponse(res, 500, 'Internal Server Error');
     }
 });

@@ -3,7 +3,6 @@ package models
 import java.io.Serializable
 
 data class User(
-    val userID: String,  // ID do usuário
     val name: String, // Nome do usuário
     val email: String, // Endereço de e-mail do usuário
     val password: String, // Senha do usuário

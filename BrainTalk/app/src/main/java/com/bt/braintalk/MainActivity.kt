@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         getSupportActionBar()?.hide()
         setContentView(R.layout.activity_main)
-        TextEmail = findViewById<EditText>(R.id.txtUsername)
+        TextEmail = findViewById<EditText>(R.id.txtUsernameLogin)
         TextSenha = findViewById<EditText>(R.id.txtPassword)
         txtTeste = findViewById<EditText>(R.id.txtEsqueceuSenha)
     }
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, PerfilActivity::class.java)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.56.1:3000/users/bIRF6rb0UjLXlGE4GAnN"
+        val url = "http://192.168.0.17:3000/users/" + TextEmail.text
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                 showToast(response.toString())
                 if (TextSenha.text.toString() == correctPassword) {
                     val user = User(
-                        userID = "bIRF6rb0UjLXlGE4GAnN",
                         name = response.optString("name"),
                         email = response.optString("email"),
                         password = response.optString("password"),
