@@ -21,13 +21,13 @@
         android:text="Brain Talk"
         android:textColor="#006EBD"
         android:textSize="128px"
-        app:layout_constraintBottom_toTopOf="@+id/txtNome"
+        app:layout_constraintBottom_toTopOf="@+id/txtNomeR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtNome"
+        android:id="@+id/txtNomeR"
         android:layout_width="990px"
         android:layout_height="130px"
         android:layout_marginStart="18dp"
@@ -45,14 +45,14 @@
         android:textColor="#002C4D"
         android:textColorHint="#002C4D"
         android:textSize="32px"
-        app:layout_constraintBottom_toTopOf="@+id/txtUsername"
+        app:layout_constraintBottom_toTopOf="@+id/txtUsernameR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBT" />
 
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/txtUsernameR"
         android:layout_width="990px"
         android:layout_height="130px"
         android:layout_marginStart="18dp"
@@ -71,14 +71,14 @@
         android:textColor="#002C4D"
         android:textColorHint="#002C4D"
         android:textSize="32px"
-        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmailR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNomeR" />
 
     <EditText
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtEmailR"
         android:layout_width="990px"
         android:layout_height="130px"
         android:layout_marginStart="18dp"
@@ -95,13 +95,13 @@
         android:textColor="#002C4D"
         android:textColorHint="#002C4D"
         android:textSize="32px"
-        app:layout_constraintBottom_toTopOf="@+id/txtPassword"
+        app:layout_constraintBottom_toTopOf="@+id/txtPasswordR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUsernameR" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/txtPasswordR"
         android:layout_width="990px"
         android:layout_height="130px"
         android:layout_marginStart="18dp"
@@ -123,7 +123,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnCadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailR" />
 
     <Button
         android:id="@+id/btnCadastrar"
@@ -134,11 +134,12 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="#006EBD"
         android:text="Cadastrar"
+        android:onClick="cadastrar"
         app:cornerRadius="100px"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswordR" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -173,5 +174,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <TextView
+        android:id="@+id/txtErros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtCreditos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.808" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -127,27 +127,14 @@ app.get('/friends/', async (req, res) => {
     }
 });
 
-/*app.post('/user', async (req, res) => {
+app.post('/user', async (req, res) => {
     const newUser = req.body;
-    if (!validateUser(newUser)) {
-        handleResponse(res, 400, 'Invalid input data');
-    } else {
-        const exists = await existsUser(newUser.id);
-        if (exists) {
-            handleResponse(res, 409, 'User already exists');
-        } else {
-            const emailExists = await existsUserEmail(newUser.email);
-            if (emailExists) {
-                handleResponse(res, 409, 'Email already in use');
-            } else {
-                await setDoc(doc(db, 'user', newUser.id), newUser);
-                handleResponse(res, 200, 'User added');
-            }
-        }
+    await setDoc(doc(db, 'Users', newUser.username), newUser);
+    handleResponse(res, 200, {msg: 'User added'})
     }
-});
+);
 
-app.put('/user/:id', async (req, res) => {
+/*app.put('/user/:id', async (req, res) => {
     const id = req.params.id;
     const updatedUser = req.body;
     if (!validateUser(updatedUser)) {

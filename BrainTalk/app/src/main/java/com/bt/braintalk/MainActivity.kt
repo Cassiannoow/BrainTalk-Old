@@ -40,20 +40,20 @@ class MainActivity : AppCompatActivity() {
     } //optimize
 
     fun registerPage(view: View) {
-
+        val intent = Intent(this, ResgisterActivity::class.java)
+        startActivity(intent)
     }
 
     fun perfilPage(view: View){
         val intent = Intent(this, PerfilActivity::class.java)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.17:3000/users/" + TextEmail.text
+        val url = "http://192.168.56.1:3000/users/" + TextEmail.text
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
                 val correctPassword = response.optString("password")
-                showToast(response.toString())
                 if (TextSenha.text.toString() == correctPassword) {
                     val user = User(
                         name = response.optString("name"),
@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
                         password = response.optString("password"),
                         photo = response.optString("photo"),
                         biograpy = response.optString("biograpy"),
-                        username = response.optString("username")
+                        username = response.optString("username"),
+                        bannerPhoto = response.optString("bannerPhoto")
                     )
                     intent.putExtra("user", user)
                     startActivity(intent)
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 }
             },
             { error ->
-                showToast("Invalid email" + error.toString())
+                showToast("Invalid username $error")
             }
         )
         queue.add(jsonObjectRequest)

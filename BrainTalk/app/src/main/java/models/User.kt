@@ -8,5 +8,6 @@ data class User(
     val password: String, // Senha do usuário
     val photo: String, // Imagem de perfil codificada em base64
     val biograpy: String,
-    val username: String
+    val username: String,
+    val bannerPhoto: String
 ): Serializable

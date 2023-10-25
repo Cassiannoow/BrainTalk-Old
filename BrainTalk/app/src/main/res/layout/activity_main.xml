@@ -20,7 +20,7 @@
         android:text="Brain Talk"
         android:textColor="#006EBD"
         android:textSize="128px"
-        app:layout_constraintBottom_toTopOf="@+id/txtUsername"
+        app:layout_constraintBottom_toTopOf="@+id/txtUsernameLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

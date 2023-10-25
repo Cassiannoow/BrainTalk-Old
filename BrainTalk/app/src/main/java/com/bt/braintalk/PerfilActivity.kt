@@ -28,12 +28,13 @@ class PerfilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
         user = intent.getSerializableExtra("user") as User
+
+        val imageViewPhoto = findViewById<ImageView>(R.id.imgUser)
+        val imageViewBanner = findViewById<ImageView>(R.id.imgBanner)
+        adicionarImagens(user.photo, imageViewPhoto)
+        adicionarImagens(user.bannerPhoto, imageViewBanner)
         atualizarDados()
-        val imageView = findViewById<ImageView>(R.id.imgUser)
-        val imageData = user.photo.split(",")[1]
-        val decodedBytes = Base64.decode(imageData, Base64.DEFAULT)
-        val decodedBitmap = BitmapFactory.decodeStream(ByteArrayInputStream(decodedBytes))
-        imageView.setImageBitmap(decodedBitmap)
+
 
         TextName = findViewById<EditText>(R.id.txtName)
         TextUsername = findViewById<EditText>(R.id.txtUsername)
@@ -44,12 +45,19 @@ class PerfilActivity : AppCompatActivity() {
         TextUsername.text = "@" + user.username
         TextBiografia.text = user.biograpy
     }
+
+    fun adicionarImagens(s: String, imageView: ImageView){
+        val imageData = s.split(",")[1]
+        val decodedBytes = Base64.decode(imageData, Base64.DEFAULT)
+        val decodedBitmap = BitmapFactory.decodeStream(ByteArrayInputStream(decodedBytes))
+        imageView.setImageBitmap(decodedBitmap)
+    }
     private fun showToast(s: String) {
         Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT).show()
     } //optimize
     fun atualizarDados(){
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.17:3000/friends"
+        val url = "http://192.168.56.1:3000/friends"
         var followers = 0
         var following = 0
 
@@ -76,8 +84,8 @@ class PerfilActivity : AppCompatActivity() {
                         }
                     }
 
-                    TextFollower.text = followers.toString() + " Seguidores"
-                    TextFollowing.text = following.toString() + " Seguindo"
+                    TextFollower.text = "$followers Seguidores"
+                    TextFollowing.text = "$following Seguindo"
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
