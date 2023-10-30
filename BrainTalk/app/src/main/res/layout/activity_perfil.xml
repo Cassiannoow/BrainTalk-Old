@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:backgroundTint="#3300305C"
-    tools:context=".PerfilActivity">
+    tools:context=".PerfilActivity"
+    tools:layout_editor_absoluteX="-4dp"
+    tools:layout_editor_absoluteY="22dp">
 
     <ImageView
         android:id="@+id/imgBanner"
@@ -105,6 +107,147 @@
         app:layout_constraintTop_toBottomOf="@+id/txtBiograpy"
         app:layout_constraintVertical_bias="0.406" />
 
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtBiograpy"
+        app:layout_constraintVertical_bias="0.237" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:onClick="alterarColorTextPost"
+            android:id="@+id/txtPosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posts"
+            android:textColor="#000"
+            android:textSize="48px"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+            app:layout_constraintVertical_bias="0.551" />
+
+        <View
+            android:id="@+id/bordaPost"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:onClick="alterarColorTextMaterial"
+            android:id="@+id/txtMaterials"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Materials"
+            android:textColor="#002C4D"
+            android:textSize="48px"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+            app:layout_constraintVertical_bias="0.551"/>
+
+        <View
+            android:id="@+id/bordaMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="208dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:onClick="alterarColorTextForun"
+            android:id="@+id/txtForuns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Foruns"
+            android:textColor="#002C4D"
+            android:textSize="48px"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+            app:layout_constraintVertical_bias="0.551" />
+
+        <View
+            android:id="@+id/bordaForun"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="304dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:onClick="alterarColorTextLikeds"
+            android:id="@+id/txtLikeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Likeds"
+            android:textColor="#002C4D"
+            android:textSize="48px"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFollower"
+            app:layout_constraintVertical_bias="0.551" />
+
+        <View
+            android:id="@+id/bordaLiked"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD"
+            android:visibility="gone"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/txtFollowing"
         android:layout_width="150dp"
@@ -119,17 +262,15 @@
         app:layout_constraintTop_toBottomOf="@+id/txtBiograpy"
         app:layout_constraintVertical_bias="0.406" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO CONTENT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtBiograpy"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
