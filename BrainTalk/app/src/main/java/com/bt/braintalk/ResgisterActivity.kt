@@ -60,7 +60,7 @@ class ResgisterActivity : AppCompatActivity() {
                     bannerPhoto = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEUvvtUYlJlqAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC"
                 )
                 val queue = Volley.newRequestQueue(this)
-                val url = "http://192.168.0.17:3000/user"
+                val url = "http://192.168.56.1:3000/user"
                 val userJson = JSONObject()
                 userJson.put("username", user.username)
                 userJson.put("name", user.name)

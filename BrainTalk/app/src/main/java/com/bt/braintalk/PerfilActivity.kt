@@ -1,5 +1,6 @@
 package com.bt.braintalk
 
+import PostAdapter
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import models.User
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import models.Post
 import org.json.JSONArray
 import org.json.JSONException
 import java.io.ByteArrayInputStream
@@ -62,6 +68,17 @@ class PerfilActivity : AppCompatActivity() {
         TextName.text = user.name
         TextUsername.text = "@" + user.username
         TextBiografia.text = user.biograpy
+
+        // Suponha que você tenha uma Activity ou Fragment onde está usando o RecyclerView e o PostAdapter
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewPosts)
+        val postAdapter = PostAdapter(listOf()) // Inicialize com uma lista vazia por enquanto
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = postAdapter
+
+        // Chame a função para obter os posts da API
+        getPostsFromApi(postAdapter)
+
     }
 
     fun adicionarImagens(s: String, imageView: ImageView){
@@ -75,7 +92,7 @@ class PerfilActivity : AppCompatActivity() {
     } //optimize
     fun atualizarDados(){
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.17:3000/friends"
+        val url = "http://192.168.56.1:3000/friends"
         var followers = 0
         var following = 0
 
@@ -117,6 +134,49 @@ class PerfilActivity : AppCompatActivity() {
 // Adicione a solicitação à fila de solicitações Volley (substitua mRequestQueue pelo seu RequestQueue existente)
         queue.add(jsonArrayRequest)
     }
+
+    fun getPostsFromApi(postAdapter: PostAdapter) {
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.56.1:3000/posts" // Substitua pela URL correta da sua API
+
+        val request = JsonArrayRequest(Request.Method.GET, url, null,
+            { response ->
+                val posts = mutableListOf<Post>()
+
+                for (i in 0 until response.length()) {
+                    val jsonObject = response.getJSONObject(i)
+                    val username = jsonObject.getString("username")
+                    val content = jsonObject.getString("content")
+                    val dataPostObject = jsonObject.getJSONObject("dataPost")
+                    val seconds = dataPostObject.getLong("seconds")
+                    val nanoseconds = dataPostObject.getLong("nanoseconds")
+                    val dataPost = seconds * 1000 + nanoseconds / 1000000 // Convertendo para milissegundos
+
+// Agora você pode usar o valor de dataPost (que é um Long) conforme necessário
+
+                    val file = jsonObject.getString("file")
+                    val contenttype = jsonObject.getString("contenttype")
+                    // Outros campos da postagem
+
+                    val post = Post(username, content, dataPost, file, contenttype)
+                    posts.add(post)
+
+
+                }
+                Log.d("Lista Posts", posts.toString())
+                postAdapter.updatePosts(posts) // Atualiza o adaptador com os novos posts
+            },
+            { error ->
+                // Tratar erros na solicitação
+            }
+        )
+
+        // Adicione a solicitação à fila de solicitações Volley (substitua mRequestQueue pelo seu RequestQueue existente)
+        queue.add(request)
+    }
+
+    // Outros métodos da classe
+
 
     fun disableAllBorder(){
         viewPost.visibility = View.INVISIBLE

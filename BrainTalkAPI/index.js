@@ -17,6 +17,8 @@ const db = getFirestore(firebase);
 
 const usersCol = collection(db, 'Users');
 const friends = collection(db, 'Friends');
+const posts = collection(db, 'Posts');
+const likes = collection(db, 'Likes');
 
 const validateUser = (user) => {
     try {
@@ -77,6 +79,37 @@ app.get('/user/:id', async (req, res) => {
         handleResponse(res, 404, 'User does not exist');
     }
 });*/
+
+app.get('/posts/', async (req, res) => {
+    try {
+        const playersSnapshot = await getDocs(posts);
+        const friendsLists = [];
+
+        playersSnapshot.forEach((playerDoc) => {
+            friendsLists.push(playerDoc.data(), {id: playerDoc.id});
+        });
+
+        res.status(200).send(friendsLists);
+    } catch (error) {
+        console.error('Error retrieving posts: ', error);
+        handleResponse(res, 500, 'Internal Server Error');
+    }
+});
+app.get('/likes/', async (req, res) => {
+    try {
+        const playersSnapshot = await getDocs(likes);
+        const friendsLists = [];
+
+        playersSnapshot.forEach((playerDoc) => {
+            friendsLists.push(playerDoc.data(), {id: playerDoc.id});
+        });
+
+        res.status(200).send(friendsLists);
+    } catch (error) {
+        console.error('Error retrieving likes: ', error);
+        handleResponse(res, 500, 'Internal Server Error');
+    }
+});
 
 app.get('/users/', async (req, res) => {
     try {

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, PerfilActivity::class.java)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.17:3000/users/" + TextEmail.text
+        val url = "http://192.168.56.1:3000/users/" + TextEmail.text
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
