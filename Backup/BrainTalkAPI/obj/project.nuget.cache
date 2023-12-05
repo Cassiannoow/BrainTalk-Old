@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YhrTFQAC4FFzKcA48wnS5WRGlxRIb/OJ9pP+RnohCMMyaSYGWXWLXacBfpfoGNCeLi7B66anMbVKTkmTET8Xog==",
+  "dgSpecHash": "I337Cn/j02x97su/Cy7o3mzKonvf4GruGNGiC5WeuXIc8K67DTD6meRDDuOBVD7bEZn5CvRqqPLp4GqwcbqcuQ==",
   "success": true,
-  "projectFilePath": "E:\\Documentos\\GitHub\\BrainTalk\\BrainTalkAPI\\BrainTalkAPI.csproj",
+  "projectFilePath": "E:\\Documentos\\GitHub\\BrainTalk\\Backup\\BrainTalkAPI\\BrainTalkAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cassi\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\cassi\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
