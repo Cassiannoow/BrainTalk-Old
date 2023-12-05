@@ -9,6 +9,7 @@
     tools:context=".MainScreen">
 
     <androidx.cardview.widget.CardView
+        android:onClick="perfilPage"
         android:id="@+id/cardView"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -66,5 +67,102 @@
         app:layout_constraintVertical_bias="0.019"
         app:strokeColor="@color/black"
         app:strokeWidth="5px"/>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSearch"
+        app:layout_constraintVertical_bias="0.016"
+        tools:ignore="MissingConstraints">
+
+
+        <View
+            android:id="@+id/bordaForun"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtForuns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="alterarColorTextForun"
+            android:text="For you"
+            android:textColor="#002C4D"
+            android:textSize="48px" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/txtSearch"
+        app:layout_constraintVertical_bias="0.015"
+        tools:ignore="MissingConstraints">
+
+
+        <View
+            android:id="@+id/bordaMaisDiscutidos"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtDiscussions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="alterarColorTextForun"
+            android:text="More viewd"
+            android:textColor="#002C4D"
+            android:textSize="48px" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.126" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#006EBD"
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPosts"
+        android:layout_width="match_parent"
+        android:layout_height="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:layout_editor_absoluteX="1dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

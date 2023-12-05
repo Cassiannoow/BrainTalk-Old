@@ -76,4 +76,37 @@ class MainActivity : AppCompatActivity() {
         )
         queue.add(jsonObjectRequest)
     }
+
+    fun menuPage(view: View){
+        val intent = Intent(this, MainScreen::class.java)
+
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.56.1:3000/users/" + TextEmail.text
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val correctPassword = response.optString("password")
+                if (TextSenha.text.toString() == correctPassword) {
+                    val user = User(
+                        name = response.optString("name"),
+                        email = response.optString("email"),
+                        password = response.optString("password"),
+                        photo = response.optString("photo"),
+                        biograpy = response.optString("biograpy"),
+                        username = response.optString("username"),
+                        bannerPhoto = response.optString("bannerPhoto")
+                    )
+                    intent.putExtra("user", user)
+                    startActivity(intent)
+                } else {
+                    showToast("Wrong password")
+                }
+            },
+            { error ->
+                showToast("Invalid username $error")
+            }
+        )
+        queue.add(jsonObjectRequest)
+    }
 }

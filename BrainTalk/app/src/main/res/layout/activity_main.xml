@@ -33,7 +33,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="17dp"
         android:backgroundTint="#006EBD"
-        android:onClick="perfilPage"
+        android:onClick="menuPage"
         android:text="Entrar"
         app:cornerRadius="100px"
         app:layout_constraintEnd_toEndOf="parent"
