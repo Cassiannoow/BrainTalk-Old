@@ -12,15 +12,17 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley.newRequestQueue
+import com.bt.braintalk.OnPostItemClickListener
 import com.bt.braintalk.R
-import Models.Post
-import Models.User
+import models.Post
+import models.User
 import org.json.JSONException
 import java.io.ByteArrayInputStream
 
-class PostAdapter(private var posts: List<Post>, user: User) :
+class PostAdapter(private var posts: List<Post>, user: User, clickListener: OnPostItemClickListener) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
     private val usuario: User = user
+    private val clickListenera: OnPostItemClickListener = clickListener
     var color = "black"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view: View =
@@ -29,13 +31,13 @@ class PostAdapter(private var posts: List<Post>, user: User) :
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-
         val post = posts[position]
         holder.textTitle.text = "@" + post.username
         holder.textContent.text = post.content
+        holder.bind(post.id)
         adicionarImagens(post.file, holder.imgPost)
         val queue = newRequestQueue(holder.context)
-        val url = "http://192.168.0.14:3000/users/" + post.username
+        val url = "http://192.168.58.27:3000/users/" + post.username
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -49,7 +51,7 @@ class PostAdapter(private var posts: List<Post>, user: User) :
         var likes = 0
 
         val queue2 = newRequestQueue(holder.context)
-        val url2 = "http://192.168.0.14:3000/likes/"
+        val url2 = "http://192.168.58.27:3000/likes/"
 
         val request = JsonArrayRequest(
             Request.Method.GET, url2, null,
@@ -102,13 +104,16 @@ class PostAdapter(private var posts: List<Post>, user: User) :
         return posts.size
     }
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var textTitle: TextView
         var textContent: TextView
         var textLikes: TextView
         var imgPost: ImageView
         var imgUser: ImageView
         var context: Context
+        private var postId: String = ""
         init {
             textLikes= itemView.findViewById<TextView>(R.id.textLIkes)
             textTitle = itemView.findViewById<TextView>(R.id.textUsername)
@@ -116,9 +121,18 @@ class PostAdapter(private var posts: List<Post>, user: User) :
             imgPost = itemView.findViewById<ImageView>(R.id.imageFile)
             imgUser = itemView.findViewById<ImageView>(R.id.imageUser)
             context = itemView.context
+            itemView.setOnClickListener(this)
 
         }
 
+        fun bind(postId: String) {
+            this.postId = postId
+            // Resto do código para vincular outros dados ao ViewHolder
+        }
+
+        override fun onClick(v: View?) {
+            clickListenera.onPostItemClick(postId)
+        }
     }
 
     fun adicionarImagens(s: String, imageView: ImageView){

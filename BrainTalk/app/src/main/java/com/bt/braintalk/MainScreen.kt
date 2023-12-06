@@ -20,11 +20,11 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import Models.Post
-import Models.User
+import models.Post
+import models.User
 import java.io.ByteArrayInputStream
 
-class MainScreen : AppCompatActivity() {
+class MainScreen : AppCompatActivity(), OnPostItemClickListener {
     private lateinit var user: User;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +57,7 @@ class MainScreen : AppCompatActivity() {
 
     fun getPostsFromApi(postAdapter: PostAdapter) {
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.14:3000/posts" // Substitua pela URL correta da sua API
+        val url = "http://192.168.58.27:3000/posts" // Substitua pela URL correta da sua API
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -101,7 +101,7 @@ class MainScreen : AppCompatActivity() {
         val intent = Intent(this, PerfilActivity::class.java)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.14:3000/users/" + user.username
+        val url = "http://192.168.58.27:3000/users/" + user.username
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -133,13 +133,21 @@ class MainScreen : AppCompatActivity() {
         Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT).show()
     }
 
+    lateinit var postId: String
+
     fun darLike(view: View) {
         var imgLike: ImageView
         imgLike = view.findViewById<ImageView>(R.id.imageFile2)
 
+        showToast(postId)
+
         imgLike.setImageResource(R.drawable.heart_red)
     }
 
+
+    override fun onPostItemClick(postId: String) {
+        this.postId = postId
+    }
     fun criarPost(view: View)
     {
         val intent = Intent(this, create_post::class.java)

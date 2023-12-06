@@ -12,7 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import Models.Post
+import models.Post
 import com.google.gson.JsonParser
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -79,7 +79,7 @@ class create_post : AppCompatActivity() {
                         contenttype = "any"
                     )
                     val queue = Volley.newRequestQueue(this)
-                    val url = "http://192.168.0.14:3000/post"
+                    val url = "http://192.168.58.27:3000/post"
                     val userJson = JSONObject()
                     userJson.put("id", post.id)
                     userJson.put("username", post.username)
@@ -91,6 +91,7 @@ class create_post : AppCompatActivity() {
                     val jsonObjectRequest = JsonObjectRequest(
                         Request.Method.POST, url, userJson,
                         { _ ->
+
                             finish()
                         },
                         { error ->

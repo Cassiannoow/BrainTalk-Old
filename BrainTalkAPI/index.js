@@ -115,12 +115,9 @@ app.post('/post', async (req, res) => {
         const dataPostTimestamp = admin.firestore.Timestamp.fromMillis(newUser.dataPost);
 
         // Atualiza o valor de dataPost no objeto newUser
-        newUser.dataPost = dataPostTimestamp;
-
-        // Adiciona ou atualiza o documento no Firestore
-        await admin.firestore().doc(`Posts/${newUser.id}`).set(newUser);
-
-        handleResponse(res, 200, { msg: 'User added' });
+        newUser.dataPost = dataPostTimestamp.toDate();
+        await setDoc(doc(db, 'Posts', newUser.id), newUser);
+        handleResponse(res, 200, {msg: 'Post added'})
     } catch (error) {
         console.error('Error adding user:', error);
         handleResponse(res, 500, { msg: 'Internal Server Error' });

@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import Models.User
+import models.User
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -19,7 +19,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import Models.Post
+import models.Post
 import org.json.JSONArray
 import org.json.JSONException
 import java.io.ByteArrayInputStream
@@ -89,7 +89,7 @@ class PerfilActivity : AppCompatActivity() {
     }
     fun atualizarDados(){
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.14:3000/friends"
+        val url = "http://192.168.58.27:3000/friends"
         var followers = 0
         var following = 0
 
@@ -134,7 +134,7 @@ class PerfilActivity : AppCompatActivity() {
 
     fun getPostsFromApi(postAdapter: PostAdapter) {
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.14:3000/posts" // Substitua pela URL correta da sua API
+        val url = "http://192.168.58.27:3000/posts" // Substitua pela URL correta da sua API
 
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import Models.User
+import models.User
 
 class MainActivity : AppCompatActivity() {
     private lateinit var txtTeste: TextView;
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MainScreen::class.java)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.0.14:3000/users/" + TextEmail.text
+        val url = "http://192.168.58.27:3000/users/" + TextEmail.text
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
