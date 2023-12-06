@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import models.User
+import Models.User
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -19,7 +19,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import models.Post
+import Models.Post
 import org.json.JSONArray
 import org.json.JSONException
 import java.io.ByteArrayInputStream
@@ -71,7 +71,7 @@ class PerfilActivity : AppCompatActivity() {
 
         // Suponha que você tenha uma Activity ou Fragment onde está usando o RecyclerView e o PostAdapter
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewPosts)
-        val postAdapter = PostAdapter(listOf()) // Inicialize com uma lista vazia por enquanto
+        val postAdapter = PostAdapter(listOf(), user) // Inicialize com uma lista vazia por enquanto
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = postAdapter

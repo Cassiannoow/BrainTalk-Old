@@ -8,21 +8,6 @@
     android:backgroundTint="#3300305C"
     tools:context=".MainScreen">
 
-
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:backgroundTint="#006EBD"
-        android:text="+"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.953"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
-
     <androidx.cardview.widget.CardView
         android:onClick="perfilPage"
         android:id="@+id/cardView"
@@ -164,7 +149,24 @@
         android:layout_height="@+id/divider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="1dp"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#006EBD"
+        android:text="+"
+        android:onClick="criarPost"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewPosts"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,8 +20,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import models.Post
-import models.User
+import Models.Post
+import Models.User
 import java.io.ByteArrayInputStream
 
 class MainScreen : AppCompatActivity() {
@@ -37,7 +38,7 @@ class MainScreen : AppCompatActivity() {
 
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewPosts)
-        val postAdapter = PostAdapter(listOf()) // Inicialize com uma lista vazia por enquanto
+        val postAdapter = PostAdapter(listOf(), user) // Inicialize com uma lista vazia por enquanto
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = postAdapter
@@ -133,40 +134,17 @@ class MainScreen : AppCompatActivity() {
     }
 
     fun darLike(view: View) {
-        val imgLike: ImageView = findViewById(R.id.imageFile2)
-        val drawable: Drawable? = imgLike.drawable
+        var imgLike: ImageView
+        imgLike = view.findViewById<ImageView>(R.id.imageFile2)
 
-        if (drawable != null) {
-            val currentImageResource = when (drawable) {
-                is BitmapDrawable -> {
-                    val bitmap: Bitmap = drawable.bitmap
-                    val heartBlackBitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.heart_black)
-                    if (bitmap.sameAs(heartBlackBitmap)) {
-                        R.drawable.heart_black
-                    } else {
-                        R.drawable.heart_red
-                    }
-                }
-                else -> {
-                    R.drawable.heart_black
-                }
-            }
-
-            // Alternar entre heart_black e heart_red
-            val newImageResource = if (currentImageResource == R.drawable.heart_black) {
-                R.drawable.heart_red
-            } else {
-                R.drawable.heart_black
-            }
-
-            // Obter o nome do recurso correspondente ao ID
-            val resourceName = resources.getResourceName(newImageResource)
-
-            // Definir o novo recurso da imagem
-            imgLike.setImageResource(newImageResource)
-            Log.d("darLike", "Imagem alterada para $resourceName")
-        } else {
-            Log.e("darLike", "Drawable é nulo")
-        }
+        imgLike.setImageResource(R.drawable.heart_red)
     }
+
+    fun criarPost(view: View)
+    {
+        val intent = Intent(this, create_post::class.java)
+        intent.putExtra("username", user.username)
+        startActivity(intent)
+    }
+
 }

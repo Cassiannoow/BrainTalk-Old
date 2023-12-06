@@ -13,12 +13,15 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley.newRequestQueue
 import com.bt.braintalk.R
-import models.Post
+import Models.Post
+import Models.User
 import org.json.JSONException
 import java.io.ByteArrayInputStream
 
-class PostAdapter(private var posts: List<Post>) :
+class PostAdapter(private var posts: List<Post>, user: User) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+    private val usuario: User = user
+    var color = "black"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.layout_post, parent, false)
@@ -62,6 +65,14 @@ class PostAdapter(private var posts: List<Post>) :
                         if(idPost == post.id)
                         {
                            likes++
+                            if(usuario.username == username)
+                            {
+                                var imgLike: ImageView
+                                imgLike = holder.itemView.findViewById<ImageView>(R.id.imageFile2)
+
+                                imgLike.setImageResource(R.drawable.heart_red)
+                                color = "red"
+                            }
                         }
                     }
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import { initializeApp } from "firebase/app";
+import admin from 'firebase-admin';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, deleteDoc, query, where } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
@@ -101,6 +102,30 @@ app.get('/posts/', async (req, res) => {
         handleResponse(res, 500, 'Internal Server Error');
     }
 });
+
+admin.initializeApp();
+
+const a = admin.firestore();
+
+app.post('/post', async (req, res) => {
+    try {
+        const newUser = req.body;
+
+        // Converte o valor Long de dataPost para um objeto Timestamp do Firestore
+        const dataPostTimestamp = admin.firestore.Timestamp.fromMillis(newUser.dataPost);
+
+        // Atualiza o valor de dataPost no objeto newUser
+        newUser.dataPost = dataPostTimestamp;
+
+        // Adiciona ou atualiza o documento no Firestore
+        await admin.firestore().doc(`Posts/${newUser.id}`).set(newUser);
+
+        handleResponse(res, 200, { msg: 'User added' });
+    } catch (error) {
+        console.error('Error adding user:', error);
+        handleResponse(res, 500, { msg: 'Internal Server Error' });
+    }
+});
 app.get('/likes/', async (req, res) => {
     try {
         const playersSnapshot = await getDocs(likes);
@@ -116,6 +141,13 @@ app.get('/likes/', async (req, res) => {
         handleResponse(res, 500, 'Internal Server Error');
     }
 });
+
+app.post('/like', async (req, res) => {
+    const newUser = req.body;
+    await setDoc(doc(db, 'Likes', newUser.id), newUser);
+    handleResponse(res, 200, {msg: 'User added'})
+    }
+);
 
 app.get('/users/', async (req, res) => {
     try {
