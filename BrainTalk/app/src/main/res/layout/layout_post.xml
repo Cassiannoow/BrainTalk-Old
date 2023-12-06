@@ -3,23 +3,23 @@
      xmlns:app="http://schemas.android.com/apk/res-auto"
      xmlns:tools="http://schemas.android.com/tools"
      android:id="@+id/linearLayout"
-     android:layout_width="match_parent"
+     android:layout_width="wrap_content"
      android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="#FFFF"
         android:backgroundTint="#3300305C"
         app:cardCornerRadius="75dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026">
+        app:layout_constraintVertical_bias="0.06">
 
         <ImageView
             android:id="@+id/imgUser"
@@ -46,12 +46,12 @@
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Username"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,10 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        android:textSize="14sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toEndOf="@+id/imageFile3"
         app:layout_constraintTop_toBottomOf="@+id/imageFile"
         app:layout_constraintVertical_bias="0.514" />
@@ -72,26 +72,40 @@
         android:id="@+id/textLIkes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="76dp"
-        android:text="0.0M"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="1dp"
+        android:text="0"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageFile2"
         app:layout_constraintEnd_toStartOf="@+id/imageFile3"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toEndOf="@+id/imageFile2"
+        app:layout_constraintTop_toTopOf="@+id/imageFile2" />
+
+    <ImageView
+        android:id="@+id/imageFile2"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:onClick="onLikeButtonClick"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageFile"
         app:layout_constraintTop_toBottomOf="@+id/imageFile"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/heart_black" />
 
     <TextView
         android:id="@+id/textTimestamp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="112dp"
         android:text="Timestamp"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/textUsername"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toEndOf="@+id/textUsername"
         app:layout_constraintTop_toTopOf="@+id/textUsername"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -99,7 +113,7 @@
         android:id="@+id/textContent"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:text="Content"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
@@ -110,34 +124,18 @@
         android:id="@+id/imageFile"
         android:layout_width="250dp"
         android:layout_height="150dp"
-        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="@+id/imageFile2"
-        app:layout_constraintTop_toBottomOf="@+id/textContent" />
-
-    <ImageView
-        android:id="@+id/imageFile2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="20dp"
-        android:adjustViewBounds="true"
-        android:onClick="onLikeButtonClick"
-        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFile"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/heart_black" />
+        app:layout_constraintStart_toStartOf="@+id/textContent"
+        app:layout_constraintTop_toBottomOf="@+id/textContent"
+        app:layout_constraintVertical_bias="0.101" />
 
     <ImageView
         android:id="@+id/imageFile3"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="116dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"

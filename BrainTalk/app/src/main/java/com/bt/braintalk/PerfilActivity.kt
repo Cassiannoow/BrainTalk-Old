@@ -79,11 +79,11 @@ class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
     }
 
     lateinit var postId: String
-    override fun onPostItemClick(postId: String) {
+    fun onPostItemClick(postId: String) {
         this.postId = postId
     }
 
-    override fun onLikeButtonClick(postId: String) {
+    fun onLikeButtonClick(postId: String) {
         TODO("Not yet implemented")
     }
 
@@ -222,5 +222,13 @@ class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
         imgLike = view.findViewById<ImageView>(R.id.imageFile2)
 
         imgLike.setImageResource(R.drawable.heart_red)
+    }
+
+    override fun onPostItemClick(postId: String, v: View) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLikeButtonClick(postId: String, v: View) {
+        TODO("Not yet implemented")
     }
 }

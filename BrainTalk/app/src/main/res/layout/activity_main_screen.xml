@@ -9,12 +9,12 @@
     tools:context=".MainScreen">
 
     <androidx.cardview.widget.CardView
-        android:onClick="perfilPage"
         android:id="@+id/cardView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="#FFFF"
         android:backgroundTint="#3300305C"
+        android:onClick="perfilPage"
         app:cardCornerRadius="75dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,12 +62,12 @@
         android:textColor="#002C4D"
         android:textColorHint="#002C4D"
         android:textSize="32px"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
+        app:layout_constraintTop_toTopOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.301"
         app:strokeColor="@color/black"
         app:strokeWidth="5px" />
 
@@ -76,14 +76,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSearch"
-        app:layout_constraintVertical_bias="0.016"
+        app:layout_constraintVertical_bias="0.194"
         tools:ignore="MissingConstraints">
-
 
         <View
             android:id="@+id/bordaForun"
@@ -96,23 +95,22 @@
             android:id="@+id/txtForuns"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="alterarColorTextForun"
             android:text="For you"
             android:textColor="#002C4D"
             android:textSize="48px" />
     </LinearLayout>
 
-
     <LinearLayout
+        android:id="@+id/moreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintHorizontal_bias="0.598"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/txtSearch"
-        app:layout_constraintVertical_bias="0.015"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.566"
         tools:ignore="MissingConstraints">
 
 
@@ -127,8 +125,7 @@
             android:id="@+id/txtDiscussions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="alterarColorTextForun"
-            android:text="More viewd"
+            android:text="Most Seen "
             android:textColor="#002C4D"
             android:textSize="48px" />
     </LinearLayout>
@@ -142,19 +139,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.126" />
-
+        app:layout_constraintTop_toBottomOf="@+id/moreview"
+        app:layout_constraintVertical_bias="0.012" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPosts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.125"
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
@@ -162,15 +160,22 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:backgroundTint="#006EBD"
-        android:text="+"
         android:onClick="criarPost"
+        android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewPosts"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewPosts"/>
+        app:layout_constraintVertical_bias="0.98" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

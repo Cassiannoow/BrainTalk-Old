@@ -37,7 +37,7 @@ class PostAdapter(private var posts: List<Post>, user: User, clickListener: OnPo
         holder.bind(post.id)
 
         holder.imgLike.setOnClickListener {
-            clickListener.onLikeButtonClick(post.id)
+            clickListener.onLikeButtonClick(post.id, holder.itemView)
         }
         adicionarImagens(post.file, holder.imgPost)
         val queue = newRequestQueue(holder.context)
@@ -137,8 +137,8 @@ class PostAdapter(private var posts: List<Post>, user: User, clickListener: OnPo
             // Resto do código para vincular outros dados ao ViewHolder
         }
 
-        override fun onClick(v: View?) {
-            clickListener.onPostItemClick(postId)
+        override fun onClick(v: View) {
+            clickListener.onPostItemClick(postId, v)
         }
     }
 

@@ -137,11 +137,11 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
         darLike(postId, view)
     }
 
-    override fun onPostItemClick(postId: String) {
+    override fun onPostItemClick(postId: String, view: View) {
         this.postId = postId
     }
 
-    override fun onLikeButtonClick(postId: String) {
+    override fun onLikeButtonClick(postId: String, view: View) {
         val queue2 = Volley.newRequestQueue(this)
         val url2 = "http://192.168.58.27:3000/likes/"
 
@@ -152,6 +152,7 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
                     // A resposta é uma matriz JSON (JSONArray)
                     for (i in 0 until response.length()) {
                         val jsonObject = response.getJSONObject(i)
+                        val id = jsonObject.getString("id")
                         val idPost = jsonObject.getString("postId")
                         val username = jsonObject.getString("username")
 
@@ -160,16 +161,30 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
                         {
                             if(user.username == username)
                             {
-                                var imgLike: ImageView
-                                imgLike = findViewById<ImageView>(R.id.imageFile2)
+                                val queue2 = Volley.newRequestQueue(this)
+                                val url2 = "http://192.168.58.27:3000/like/" + id
 
-                                imgLike.setImageResource(R.drawable.heart_black)
+                                val request = JsonArrayRequest(
+                                    Request.Method.DELETE, url2, null,
+                                    { response ->
+                                        var imgLike: ImageView
+                                        imgLike = view.findViewById<ImageView>(R.id.imageFile2)
+                                        imgLike.setImageResource(R.drawable.heart_black)
+                                    },
+                                    { error ->
+                                        // Tratar erros na solicitação
+                                    }
+                                )
+
+                                // Adicione a solicitação à fila de solicitações Volley (substitua mRequestQueue pelo seu RequestQueue existente)
+                                queue2.add(request)
+                                showToast(postId + " heart black")
                             }
                         }
                         else{
                             var imgLike: ImageView
-                            imgLike = findViewById<ImageView>(R.id.imageFile2)
-
+                            imgLike = view.findViewById<ImageView>(R.id.imageFile2)
+                            showToast(postId + " heart red")
                             imgLike.setImageResource(R.drawable.heart_red)
                         }
                     }

@@ -129,7 +129,9 @@ app.get('/likes/', async (req, res) => {
         const friendsLists = [];
 
         playersSnapshot.forEach((playerDoc) => {
-            friendsLists.push(playerDoc.data());
+            const likeData = playerDoc.data();
+            const likeId = playerDoc.id;
+            friendsLists.push({ id: likeId, ...likeData});
         });
 
         res.status(200).send(friendsLists);
@@ -145,6 +147,12 @@ app.post('/like', async (req, res) => {
     handleResponse(res, 200, {msg: 'User added'})
     }
 );
+
+app.delete('/like/:id', async (req, res) => {
+    const id = req.params.id;
+    await deleteDoc(doc(db, 'Likes', id), id)
+    handleResponse(res, 200, {msg: 'User deleted'})
+})
 
 app.get('/users/', async (req, res) => {
     try {
