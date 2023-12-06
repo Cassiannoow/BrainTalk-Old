@@ -83,13 +83,19 @@ app.get('/user/:id', async (req, res) => {
 app.get('/posts/', async (req, res) => {
     try {
         const playersSnapshot = await getDocs(posts);
-        const friendsLists = [];
+        const postsData = [];
 
-        playersSnapshot.forEach((playerDoc) => {
-            friendsLists.push(playerDoc.data(), {id: playerDoc.id});
+        playersSnapshot.forEach((postDoc) => {
+            const postId = postDoc.id;
+
+            // Obtém os dados do documento
+            const postData = postDoc.data();
+
+            // Adiciona o ID ao objeto de dados
+            postsData.push({ id: postId, ...postData });
         });
 
-        res.status(200).send(friendsLists);
+        res.status(200).send(postsData);
     } catch (error) {
         console.error('Error retrieving posts: ', error);
         handleResponse(res, 500, 'Internal Server Error');
@@ -101,7 +107,7 @@ app.get('/likes/', async (req, res) => {
         const friendsLists = [];
 
         playersSnapshot.forEach((playerDoc) => {
-            friendsLists.push(playerDoc.data(), {id: playerDoc.id});
+            friendsLists.push(playerDoc.data());
         });
 
         res.status(200).send(friendsLists);

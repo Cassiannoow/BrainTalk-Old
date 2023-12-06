@@ -87,12 +87,9 @@ class PerfilActivity : AppCompatActivity() {
         val decodedBitmap = BitmapFactory.decodeStream(ByteArrayInputStream(decodedBytes))
         imageView.setImageBitmap(decodedBitmap)
     }
-    private fun showToast(s: String) {
-        Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT).show()
-    } //optimize
     fun atualizarDados(){
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.56.1:3000/friends"
+        val url = "http://192.168.0.14:3000/friends"
         var followers = 0
         var following = 0
 
@@ -137,7 +134,7 @@ class PerfilActivity : AppCompatActivity() {
 
     fun getPostsFromApi(postAdapter: PostAdapter) {
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.56.1:3000/posts" // Substitua pela URL correta da sua API
+        val url = "http://192.168.0.14:3000/posts" // Substitua pela URL correta da sua API
 
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
@@ -145,6 +142,7 @@ class PerfilActivity : AppCompatActivity() {
 
                 for (i in 0 until response.length()) {
                     val jsonObject = response.getJSONObject(i)
+                    val id = jsonObject.getString("id")
                     val username = jsonObject.getString("username")
                     val content = jsonObject.getString("content")
                     val dataPostObject = jsonObject.getJSONObject("dataPost")
@@ -158,10 +156,12 @@ class PerfilActivity : AppCompatActivity() {
                     val contenttype = jsonObject.getString("contenttype")
                     // Outros campos da postagem
 
-                    val post = Post(username, content, dataPost, file, contenttype)
-                    posts.add(post)
+                    val post = Post(id, username, content, dataPost, file, contenttype)
 
-
+                    if(post.username == user.username)
+                    {
+                        posts.add(post)
+                    }
                 }
                 Log.d("Lista Posts", posts.toString())
                 postAdapter.updatePosts(posts) // Atualiza o adaptador com os novos posts
@@ -211,4 +211,10 @@ class PerfilActivity : AppCompatActivity() {
         TextLiked.setTextColor(Color.parseColor("#000000"))
     }
 
+    fun darLike(view: View) {
+        var imgLike: ImageView
+        imgLike = view.findViewById<ImageView>(R.id.imageFile2)
+
+        imgLike.setImageResource(R.drawable.heart_red)
+    }
 }
