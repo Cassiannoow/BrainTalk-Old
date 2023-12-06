@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import models.User
+import Models.User
 
 class MainActivity : AppCompatActivity() {
     private lateinit var txtTeste: TextView;

@@ -2,15 +2,11 @@ package com.bt.braintalk
 
 import PostAdapter
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,8 +16,9 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import models.Post
-import models.User
+import Models.Post
+import Models.User
+import org.json.JSONException
 import java.io.ByteArrayInputStream
 
 class MainScreen : AppCompatActivity(), OnPostItemClickListener {
@@ -38,7 +35,7 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
 
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewPosts)
-        val postAdapter = PostAdapter(listOf(), user) // Inicialize com uma lista vazia por enquanto
+        val postAdapter = PostAdapter(listOf(), user, this) // Inicialize com uma lista vazia por enquanto
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = postAdapter
@@ -135,7 +132,64 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
 
     lateinit var postId: String
 
-    fun darLike(view: View) {
+     fun onPostItemClick(view: View) {
+        this.postId = (view.getTag() as String?) ?: ""
+        darLike(postId, view)
+    }
+
+    override fun onPostItemClick(postId: String) {
+        this.postId = postId
+    }
+
+    override fun onLikeButtonClick(postId: String) {
+        val queue2 = Volley.newRequestQueue(this)
+        val url2 = "http://192.168.58.27:3000/likes/"
+
+        val request = JsonArrayRequest(
+            Request.Method.GET, url2, null,
+            { response ->
+                try {
+                    // A resposta é uma matriz JSON (JSONArray)
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        val idPost = jsonObject.getString("postId")
+                        val username = jsonObject.getString("username")
+
+                        // Faça algo com os dados aqui, por exemplo, adicione-os a uma lista
+                        if(idPost == postId)
+                        {
+                            if(user.username == username)
+                            {
+                                var imgLike: ImageView
+                                imgLike = findViewById<ImageView>(R.id.imageFile2)
+
+                                imgLike.setImageResource(R.drawable.heart_black)
+                            }
+                        }
+                        else{
+                            var imgLike: ImageView
+                            imgLike = findViewById<ImageView>(R.id.imageFile2)
+
+                            imgLike.setImageResource(R.drawable.heart_red)
+                        }
+                    }
+
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                // Tratar erros na solicitação
+            }
+        )
+
+        // Adicione a solicitação à fila de solicitações Volley (substitua mRequestQueue pelo seu RequestQueue existente)
+        queue2.add(request)
+
+    }
+
+    fun darLike(postId: String, view: View) {
         var imgLike: ImageView
         imgLike = view.findViewById<ImageView>(R.id.imageFile2)
 
@@ -145,9 +199,6 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
     }
 
 
-    override fun onPostItemClick(postId: String) {
-        this.postId = postId
-    }
     fun criarPost(view: View)
     {
         val intent = Intent(this, create_post::class.java)

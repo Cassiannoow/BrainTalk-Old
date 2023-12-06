@@ -44,6 +44,7 @@
 
     </androidx.cardview.widget.CardView>
 
+
     <EditText
         android:id="@+id/txtSearch"
         android:layout_width="250dp"
@@ -62,12 +63,13 @@
         android:textColorHint="#002C4D"
         android:textSize="32px"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.019"
         app:strokeColor="@color/black"
-        app:strokeWidth="5px"/>
-
+        app:strokeWidth="5px" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -143,15 +145,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.126" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPosts"
         android:layout_width="match_parent"
-        android:layout_height="@+id/divider"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:layout_editor_absoluteX="1dp"
-        app:layout_constraintVertical_chainStyle="packed"/>
-
+        app:layout_constraintVertical_bias="0.125"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/button2"

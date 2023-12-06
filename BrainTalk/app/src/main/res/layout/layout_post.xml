@@ -125,7 +125,7 @@
         android:layout_marginStart="136dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
-        android:onClick="darLike"
+        android:onClick="onLikeButtonClick"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

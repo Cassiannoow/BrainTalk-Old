@@ -8,24 +8,21 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import models.User
+import Models.User
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import models.Post
-import org.json.JSONArray
+import Models.Post
 import org.json.JSONException
 import java.io.ByteArrayInputStream
 
 
-class PerfilActivity : AppCompatActivity() {
+class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
     private lateinit var TextName: TextView;
     private lateinit var TextUsername: TextView;
     private lateinit var TextBiografia: TextView;
@@ -71,7 +68,7 @@ class PerfilActivity : AppCompatActivity() {
 
         // Suponha que você tenha uma Activity ou Fragment onde está usando o RecyclerView e o PostAdapter
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewPosts)
-        val postAdapter = PostAdapter(listOf(), user) // Inicialize com uma lista vazia por enquanto
+        val postAdapter = PostAdapter(listOf(), user, this) // Inicialize com uma lista vazia por enquanto
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = postAdapter
@@ -79,6 +76,15 @@ class PerfilActivity : AppCompatActivity() {
         // Chame a função para obter os posts da API
         getPostsFromApi(postAdapter)
 
+    }
+
+    lateinit var postId: String
+    override fun onPostItemClick(postId: String) {
+        this.postId = postId
+    }
+
+    override fun onLikeButtonClick(postId: String) {
+        TODO("Not yet implemented")
     }
 
     fun adicionarImagens(s: String, imageView: ImageView){

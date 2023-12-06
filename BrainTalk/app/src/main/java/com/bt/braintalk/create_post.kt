@@ -12,8 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import models.Post
-import com.google.gson.JsonParser
+import Models.Post
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
