@@ -37,6 +37,26 @@ const validateUser = (user) => {
     }
 };
 
+
+const existLikePost = async (postId, username) => {
+    try {
+        const data = await getDocs(likes);
+        return data.docs.some((doc) =>{
+            if(doc.data().postId === postId )
+            {
+                if(doc.data().username === username)
+                {
+                    return true
+                }
+            }
+            return false
+        })
+    } catch (e) {
+        console.error('Error checking if user exists: ', error);
+        return false;
+    }
+}
+
 const existsUser = async (id) => {
     try {
         const data = await getDocs(usersCol);
@@ -142,16 +162,31 @@ app.get('/likes/', async (req, res) => {
 });
 
 app.post('/like', async (req, res) => {
-    const newUser = req.body;
-    await setDoc(doc(db, 'Likes', newUser.id), newUser);
-    handleResponse(res, 200, {msg: 'User added'})
+    try {
+        const newLike = req.body;
+
+        // Verificar se o post (dataPost) já tem um like deste usuário
+        const postAlreadyLiked = await existLikePost(newLike.postId, newLike.username);
+        if (postAlreadyLiked) {
+            console.log("O post já foi curtido por este usuário");
+            return res.status(400).send({ msg: 'Post already liked by this user' });
+        }
+
+        // Adicionar o like
+        await setDoc(doc(db, 'Likes', newLike.id), newLike);
+        handleResponse(res, 200, { msg: 'Like added' });
+    } catch (error) {
+        console.error('Error adding like:', error);
+        handleResponse(res, 500, { msg: 'Internal Server Error' });
     }
-);
+});
+
+
 
 app.delete('/like/:id', async (req, res) => {
     const id = req.params.id;
     await deleteDoc(doc(db, 'Likes', id), id)
-    handleResponse(res, 200, {msg: 'User deleted'})
+    res.status(200).send("Excluido");
 })
 
 app.get('/users/', async (req, res) => {

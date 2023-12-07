@@ -33,7 +33,7 @@ class PostAdapter(private var posts: List<Post>, user: User, clickListener: OnPo
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
         holder.textTitle.text = "@" + post.username
-        holder.textContent.text = post.content + " " + post.id
+        holder.textContent.text = post.content
         holder.bind(post.id)
 
         holder.imgLike.setOnClickListener {

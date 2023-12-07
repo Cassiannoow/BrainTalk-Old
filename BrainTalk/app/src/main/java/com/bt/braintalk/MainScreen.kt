@@ -1,5 +1,6 @@
 package com.bt.braintalk
 
+import Models.Like
 import PostAdapter
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -18,8 +19,12 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import Models.Post
 import Models.User
+import android.widget.TextView
+import com.android.volley.toolbox.StringRequest
 import org.json.JSONException
+import org.json.JSONObject
 import java.io.ByteArrayInputStream
+import java.util.UUID
 
 class MainScreen : AppCompatActivity(), OnPostItemClickListener {
     private lateinit var user: User;
@@ -130,12 +135,12 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
         Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT).show()
     }
 
-    lateinit var postId: String
-
      fun onPostItemClick(view: View) {
         this.postId = (view.getTag() as String?) ?: ""
         darLike(postId, view)
     }
+
+    private var postId: String = " "
 
     override fun onPostItemClick(postId: String, view: View) {
         this.postId = postId
@@ -149,47 +154,38 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
             Request.Method.GET, url2, null,
             { response ->
                 try {
-                    // A resposta é uma matriz JSON (JSONArray)
+                    // Crie uma cópia da lista de likes
+                    val likesList = mutableListOf<Like>()
                     for (i in 0 until response.length()) {
                         val jsonObject = response.getJSONObject(i)
                         val id = jsonObject.getString("id")
                         val idPost = jsonObject.getString("postId")
                         val username = jsonObject.getString("username")
 
-                        // Faça algo com os dados aqui, por exemplo, adicione-os a uma lista
-                        if(idPost == postId)
-                        {
-                            if(user.username == username)
-                            {
-                                val queue2 = Volley.newRequestQueue(this)
-                                val url2 = "http://192.168.58.27:3000/like/" + id
+                        val like = Like(id, idPost, username)
+                        likesList.add(like)
+                    }
 
-                                val request = JsonArrayRequest(
-                                    Request.Method.DELETE, url2, null,
-                                    { response ->
-                                        var imgLike: ImageView
-                                        imgLike = view.findViewById<ImageView>(R.id.imageFile2)
-                                        imgLike.setImageResource(R.drawable.heart_black)
-                                    },
-                                    { error ->
-                                        // Tratar erros na solicitação
-                                    }
-                                )
+                    var hasUserLiked = false
 
-                                // Adicione a solicitação à fila de solicitações Volley (substitua mRequestQueue pelo seu RequestQueue existente)
-                                queue2.add(request)
-                                showToast(postId + " heart black")
+                    // Itere sobre a cópia da lista
+                    for (like in likesList) {
+                        if (postId == like.postID) {
+                            Log.d("Comparação de Strings", "user.username: ${user.username}, username: ${like.username}")
+                            if (user.username == like.username) {
+                                delete(view, like.id)
+                                showToast("entrei aqui no delete")
+                                hasUserLiked = true
+                                break
                             }
-                        }
-                        else{
-                            var imgLike: ImageView
-                            imgLike = view.findViewById<ImageView>(R.id.imageFile2)
-                            showToast(postId + " heart red")
-                            imgLike.setImageResource(R.drawable.heart_red)
                         }
                     }
 
-
+                    // Se o usuário não tiver um like para este postId, adicione um novo like
+                    if (!hasUserLiked) {
+                        post(view, postId)
+                        showToast("entrei aqui no post")
+                    }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -199,10 +195,10 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
             }
         )
 
-        // Adicione a solicitação à fila de solicitações Volley (substitua mRequestQueue pelo seu RequestQueue existente)
+        // Adicione a solicitação à fila de solicitações Volley
         queue2.add(request)
-
     }
+
 
     fun darLike(postId: String, view: View) {
         var imgLike: ImageView
@@ -211,6 +207,70 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
         showToast(postId)
 
         imgLike.setImageResource(R.drawable.heart_red)
+    }
+
+
+    fun delete(view: View, id: String) {
+        val queue2 = Volley.newRequestQueue(this)
+        val url2 = "http://192.168.58.27:3000/like/$id"
+
+        val request = object : StringRequest(
+            Method.DELETE, url2,
+            { response ->
+                runOnUiThread {
+                    // Alterações na interface do usuário
+                    var imgLike: ImageView = view.findViewById(R.id.imageFile2)
+                    imgLike.setImageResource(R.drawable.heart_black)
+
+                    showToast("$postId coração preto")
+
+                    var textLikes: TextView
+                    textLikes = view.findViewById<TextView>(R.id.textLIkes)
+                    var j = (textLikes.text.toString().toInt() - 1)
+                    textLikes.text = j.toString()
+                }
+            },
+            { error ->
+                showToast("Erro na solicitação DELETE: ${error.message}")
+                // Tratar erros na solicitação
+            }
+        ) {
+            // Você pode adicionar cabeçalhos personalizados aqui, se necessário
+        }
+
+        // Adicione a solicitação à fila de solicitações Volley
+        queue2.add(request)
+    }
+
+
+
+
+    fun post(view: View, postId: String){
+        showToast(user.username)
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.58.27:3000/like"
+        val userJson = JSONObject()
+        userJson.put("id", UUID.randomUUID().toString())
+        userJson.put("postId", postId)
+        userJson.put("username", user.username)
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, url, userJson,
+            { _ ->
+                var imgLike: ImageView
+                imgLike = view.findViewById<ImageView>(R.id.imageFile2)
+                showToast(postId + " heart red")
+                imgLike.setImageResource(R.drawable.heart_red)
+                var textLikes: TextView
+                textLikes = view.findViewById<TextView>(R.id.textLIkes)
+                var j = (textLikes.text.toString().toInt() + 1)
+                textLikes.text = j.toString()
+            },
+            { error ->
+                showToast("Registration failed: ${error.message}")
+            }
+        )
+        queue.add(jsonObjectRequest)
     }
 
 
