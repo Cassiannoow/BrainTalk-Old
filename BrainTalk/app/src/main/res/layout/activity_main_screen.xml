@@ -84,20 +84,23 @@
         app:layout_constraintVertical_bias="0.194"
         tools:ignore="MissingConstraints">
 
-        <View
-            android:id="@+id/bordaForun"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#006EBD"
-            android:visibility="gone" />
+
 
         <TextView
-            android:id="@+id/txtForuns"
+            android:onClick="alterarColorTextForYou"
+            android:id="@+id/txtForYou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="For you"
             android:textColor="#002C4D"
             android:textSize="48px" />
+
+        <View
+            android:id="@+id/bordaForYou"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#006EBD"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -114,20 +117,22 @@
         tools:ignore="MissingConstraints">
 
 
+
+        <TextView
+            android:onClick="alterarColorTextMostSeen"
+            android:id="@+id/txtMostSeen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most Seen"
+            android:textColor="#002C4D"
+            android:textSize="48px" />
+
         <View
-            android:id="@+id/bordaMaisDiscutidos"
+            android:id="@+id/bordaMostSeen"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#006EBD"
             android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/txtDiscussions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Most Seen "
-            android:textColor="#002C4D"
-            android:textSize="48px" />
     </LinearLayout>
 
     <View
@@ -140,13 +145,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moreview"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintVertical_bias="0.001" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPosts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

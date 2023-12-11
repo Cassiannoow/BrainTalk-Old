@@ -41,7 +41,7 @@ class PostAdapter(private var posts: List<Post>, user: User, clickListener: OnPo
         }
         adicionarImagens(post.file, holder.imgPost)
         val queue = newRequestQueue(holder.context)
-        val url = "http://192.168.58.27:3000/users/" + post.username
+        val url = "http://192.168.0.14:3000/users/" + post.username
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -55,7 +55,7 @@ class PostAdapter(private var posts: List<Post>, user: User, clickListener: OnPo
         var likes = 0
 
         val queue2 = newRequestQueue(holder.context)
-        val url2 = "http://192.168.58.27:3000/likes/"
+        val url2 = "http://192.168.0.14:3000/likes/"
 
         val request = JsonArrayRequest(
             Request.Method.GET, url2, null,

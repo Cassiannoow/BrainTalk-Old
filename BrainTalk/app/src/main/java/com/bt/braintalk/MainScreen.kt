@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import Models.Post
 import Models.User
+import android.graphics.Color
 import android.widget.TextView
 import com.android.volley.toolbox.StringRequest
 import org.json.JSONException
@@ -59,7 +60,7 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
 
     fun getPostsFromApi(postAdapter: PostAdapter) {
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.58.27:3000/posts" // Substitua pela URL correta da sua API
+        val url = "http://192.168.0.14:3000/posts" // Substitua pela URL correta da sua API
 
         val request = JsonArrayRequest(
             Request.Method.GET, url, null,
@@ -103,7 +104,7 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
         val intent = Intent(this, PerfilActivity::class.java)
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.58.27:3000/users/" + user.username
+        val url = "http://192.168.0.14:3000/users/" + user.username
 
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -148,7 +149,7 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
 
     override fun onLikeButtonClick(postId: String, view: View) {
         val queue2 = Volley.newRequestQueue(this)
-        val url2 = "http://192.168.58.27:3000/likes/"
+        val url2 = "http://192.168.0.14:3000/likes/"
 
         val request = JsonArrayRequest(
             Request.Method.GET, url2, null,
@@ -203,16 +204,13 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
     fun darLike(postId: String, view: View) {
         var imgLike: ImageView
         imgLike = view.findViewById<ImageView>(R.id.imageFile2)
-
-        showToast(postId)
-
         imgLike.setImageResource(R.drawable.heart_red)
     }
 
 
     fun delete(view: View, id: String) {
         val queue2 = Volley.newRequestQueue(this)
-        val url2 = "http://192.168.58.27:3000/like/$id"
+        val url2 = "http://192.168.0.14:3000/like/$id"
 
         val request = object : StringRequest(
             Method.DELETE, url2,
@@ -222,8 +220,6 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
                     var imgLike: ImageView = view.findViewById(R.id.imageFile2)
                     imgLike.setImageResource(R.drawable.heart_black)
 
-                    showToast("$postId coração preto")
-
                     var textLikes: TextView
                     textLikes = view.findViewById<TextView>(R.id.textLIkes)
                     var j = (textLikes.text.toString().toInt() - 1)
@@ -231,7 +227,6 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
                 }
             },
             { error ->
-                showToast("Erro na solicitação DELETE: ${error.message}")
                 // Tratar erros na solicitação
             }
         ) {
@@ -246,9 +241,8 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
 
 
     fun post(view: View, postId: String){
-        showToast(user.username)
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.58.27:3000/like"
+        val url = "http://192.168.0.14:3000/like"
         val userJson = JSONObject()
         userJson.put("id", UUID.randomUUID().toString())
         userJson.put("postId", postId)
@@ -267,7 +261,6 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
                 textLikes.text = j.toString()
             },
             { error ->
-                showToast("Registration failed: ${error.message}")
             }
         )
         queue.add(jsonObjectRequest)
@@ -279,6 +272,33 @@ class MainScreen : AppCompatActivity(), OnPostItemClickListener {
         val intent = Intent(this, create_post::class.java)
         intent.putExtra("username", user.username)
         startActivity(intent)
+    }
+
+    fun disableAllBorder(){
+        var viewPost = this.findViewById<View>(R.id.bordaForYou)
+        var viewMaterial = this.findViewById<View>(R.id.bordaMostSeen)
+        var TextPost = this.findViewById<TextView>(R.id.txtForYou)
+        var TextLiked = this.findViewById<TextView>(R.id.txtMostSeen)
+        viewPost.visibility = View.INVISIBLE
+        viewMaterial.visibility = View.INVISIBLE
+        TextPost.setTextColor(Color.parseColor("#002C4D"))
+        TextLiked.setTextColor(Color.parseColor("#002C4D"))
+    }
+
+    fun alterarColorTextForYou(view: View){
+        var viewPost = this.findViewById<View>(R.id.bordaForYou)
+        var TextPost = this.findViewById<TextView>(R.id.txtForYou)
+        disableAllBorder()
+        viewPost.visibility = View.VISIBLE
+        TextPost.setTextColor(Color.parseColor("#000000"))
+    }
+
+    fun alterarColorTextMostSeen(view: View){
+        var viewPost = this.findViewById<View>(R.id.bordaMostSeen)
+        var TextLiked = this.findViewById<TextView>(R.id.txtMostSeen)
+        disableAllBorder()
+        viewPost.visibility = View.VISIBLE
+        TextLiked.setTextColor(Color.parseColor("#000000"))
     }
 
 }

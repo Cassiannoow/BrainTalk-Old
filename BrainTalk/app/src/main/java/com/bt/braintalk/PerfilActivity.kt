@@ -1,5 +1,6 @@
 package com.bt.braintalk
 
+import Models.Like
 import PostAdapter
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -18,8 +19,12 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import Models.Post
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import org.json.JSONException
+import org.json.JSONObject
 import java.io.ByteArrayInputStream
+import java.util.UUID
 
 
 class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
@@ -95,7 +100,7 @@ class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
     }
     fun atualizarDados(){
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.58.27:3000/friends"
+        val url = "http://192.168.0.14:3000/friends"
         var followers = 0
         var following = 0
 
@@ -140,7 +145,7 @@ class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
 
     fun getPostsFromApi(postAdapter: PostAdapter) {
         val queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.58.27:3000/posts" // Substitua pela URL correta da sua API
+        val url = "http://192.168.0.14:3000/posts" // Substitua pela URL correta da sua API
 
         val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
@@ -217,18 +222,123 @@ class PerfilActivity : AppCompatActivity(), OnPostItemClickListener {
         TextLiked.setTextColor(Color.parseColor("#000000"))
     }
 
-    fun darLike(view: View) {
+    override fun onLikeButtonClick(postId: String, view: View) {
+        val queue2 = Volley.newRequestQueue(this)
+        val url2 = "http://192.168.0.14:3000/likes/"
+
+        val request = JsonArrayRequest(
+            Request.Method.GET, url2, null,
+            { response ->
+                try {
+                    // Crie uma cópia da lista de likes
+                    val likesList = mutableListOf<Like>()
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        val id = jsonObject.getString("id")
+                        val idPost = jsonObject.getString("postId")
+                        val username = jsonObject.getString("username")
+
+                        val like = Like(id, idPost, username)
+                        likesList.add(like)
+                    }
+
+                    var hasUserLiked = false
+
+                    // Itere sobre a cópia da lista
+                    for (like in likesList) {
+                        if (postId == like.postID) {
+                            Log.d("Comparação de Strings", "user.username: ${user.username}, username: ${like.username}")
+                            if (user.username == like.username) {
+                                delete(view, like.id)
+                                hasUserLiked = true
+                                break
+                            }
+                        }
+                    }
+
+                    // Se o usuário não tiver um like para este postId, adicione um novo like
+                    if (!hasUserLiked) {
+                        post(view, postId)
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                // Tratar erros na solicitação
+            }
+        )
+
+        // Adicione a solicitação à fila de solicitações Volley
+        queue2.add(request)
+    }
+
+
+    fun darLike(postId: String, view: View) {
         var imgLike: ImageView
         imgLike = view.findViewById<ImageView>(R.id.imageFile2)
-
         imgLike.setImageResource(R.drawable.heart_red)
     }
 
-    override fun onPostItemClick(postId: String, v: View) {
-        TODO("Not yet implemented")
+
+    fun delete(view: View, id: String) {
+        val queue2 = Volley.newRequestQueue(this)
+        val url2 = "http://192.168.0.14:3000/like/$id"
+
+        val request = object : StringRequest(
+            Method.DELETE, url2,
+            { response ->
+                runOnUiThread {
+                    // Alterações na interface do usuário
+                    var imgLike: ImageView = view.findViewById(R.id.imageFile2)
+                    imgLike.setImageResource(R.drawable.heart_black)
+                    var textLikes: TextView
+                    textLikes = view.findViewById<TextView>(R.id.textLIkes)
+                    var j = (textLikes.text.toString().toInt() - 1)
+                    textLikes.text = j.toString()
+                }
+            },
+            { error ->
+                // Tratar erros na solicitação
+            }
+        ) {
+            // Você pode adicionar cabeçalhos personalizados aqui, se necessário
+        }
+
+        // Adicione a solicitação à fila de solicitações Volley
+        queue2.add(request)
     }
 
-    override fun onLikeButtonClick(postId: String, v: View) {
+
+
+
+    fun post(view: View, postId: String){
+        val queue = Volley.newRequestQueue(this)
+        val url = "http://192.168.0.14:3000/like"
+        val userJson = JSONObject()
+        userJson.put("id", UUID.randomUUID().toString())
+        userJson.put("postId", postId)
+        userJson.put("username", user.username)
+
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, url, userJson,
+            { _ ->
+                var imgLike: ImageView
+                imgLike = view.findViewById<ImageView>(R.id.imageFile2)
+                imgLike.setImageResource(R.drawable.heart_red)
+                var textLikes: TextView
+                textLikes = view.findViewById<TextView>(R.id.textLIkes)
+                var j = (textLikes.text.toString().toInt() + 1)
+                textLikes.text = j.toString()
+            },
+            { error ->
+            }
+        )
+        queue.add(jsonObjectRequest)
+    }
+
+
+    override fun onPostItemClick(postId: String, v: View) {
         TODO("Not yet implemented")
     }
 }

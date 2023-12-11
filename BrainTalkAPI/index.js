@@ -1,6 +1,7 @@
 import express from 'express';
 import { initializeApp } from "firebase/app";
 import admin from 'firebase-admin';
+import bodyParser from 'body-parser';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, deleteDoc, query, where } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
@@ -83,6 +84,8 @@ const handleResponse = (res, status, message) => {
 const app = express();
 const port = 3000;
 
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json());
 
 /*app.get('/users', async (req, res) => {
@@ -122,6 +125,42 @@ app.get('/posts/', async (req, res) => {
         handleResponse(res, 500, 'Internal Server Error');
     }
 });
+
+// ...
+
+app.get('/postssortbylike', async (req, res) => {
+    try {
+        const postsSnapshot = await getDocs(posts);
+        const postsData = [];
+
+        // Itera sobre os documentos da coleção Posts   
+        for (const postDoc of postsSnapshot.docs) {
+            const postId = postDoc.id;
+
+            // Obtém os dados do documento
+            const postData = postDoc.data();
+
+            // Obtém as curtidas associadas ao post
+            const likesQuery = query(likes, where('postId', '==', postId));
+            const likesSnapshot = await getDocs(likesQuery);
+            const likesCount = likesSnapshot.size;
+
+            // Adiciona o ID e o número de curtidas ao objeto de dados
+            postsData.push({ id: postId, likes: likesCount, ...postData });
+        }
+
+        // Ordena os posts por número de curtidas (do maior para o menor)
+        postsData.sort((a, b) => b.likes - a.likes);
+
+        res.status(200).send(postsData);
+    } catch (error) {
+        console.error('Error retrieving posts: ', error);
+        handleResponse(res, 500, 'Internal Server Error');
+    }
+});
+
+// ...
+
 
 admin.initializeApp();
 
